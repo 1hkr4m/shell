@@ -1,0 +1,84 @@
+lsb_release -a #distributive
+uname -r #kernel version
+ls --version #gnu core version
+sudo X -version #X windows
+whoami #user name
+ls #list of fike in the dir
+ls -lh #show list of file and their size with good readeble format 
+ls -lt #show list of files and sort by date new first
+ls -ltr #show list of files and old first (reverse)
+ls -F #show type of files dir link or exetutable
+pwd #where we are
+last #last login
+uptime #server time
+man whoami 
+man ls
+clear
+rm
+sudo dpkg -i htop_2.0.2-1_amd64.deb
+sudo dpkg --remove htop
+file #more info about files
+#Compiling from Source
+tar xzf htop.tar.gz #extract htop source code
+./configure
+make #compile source code
+sudo make install #install the binaries
+htop 
+sudo make uninstall #delete htop
+
+cat /etc/*release* #View the release file
+cat /etc/*issue* #view the issue file
+hostnamectl #systemd-based system command
+mkdir #create directory
+cp -r <source> <destination> #copy directory
+mv <source> <destination> # move directory
+rm -r <dir> #remove directory
+touch <name> #create file
+cp <source> <destination> #copy file
+mv <source> <destination> #move file
+rm <file> #remove file
+tar cf <archive name> <adding file> #create archive
+tar rf <archive name> <file> #add file to existing archive
+tar czf <archive name> <file or dir> #create compressed archive
+gzip -9 archive.tar #Use the gzip utility to compress the first tarball (archive.tar) with maximum compression
+tar xzf archive.tar.gz Practice/Test/version.txt #This will extract the file to the existing path and overwrite the file if it exists.
+cat america.txt | grep Apple #search and print word Apple in america.txt
+wc -l america.txt #counts of lines
+cat america.txt | grep Apple | wc -l # counts of line with word Apple in america.txt
+!cat #re-run last cat command
+
+df -h #how much storage is avalible
+sudo lshw #what is BIOS version
+cat /proc/cpuinfo #how many cpus/cores
+lscpu #what is the cpu speed
+sudo dmidecode #how much ram
+free -m #how much swap
+
+ps -aux #get all proccess
+ps -eF #get last proccesses
+top #ligth version of htop
+useradd user1 #add user1
+chown user1 file.txt #change owner of file
+chown -R user1:user1 dir1 
+dmesg #get system messages
+ps aux | grep -v grep | wc -l #Determine How Many Processes Are Currently Running
+ps -u cloud_user | wc -l #how many processes run as cloud_user
+ps aux |grep -v grep | grep -E "^cloud" |wc -l
+ps aux | grep xfce4-session |grep -v grep
+cat /proc/PROCESS_PID/status | grep Threads #how many threads process is using
+
+curl -I localhost
+sudo tail -f /var/log/httpd/access_log #show 10 last records in log/httpd/access_log
+
+dig www.linuxacademy.com
+host linuxacademy.com
+
+sudo cat /etc/sudoers
+cat /etc/passwd | grep root
+sudo su - #login as root
+
+id sysuser #Determine What Groups sysuser Belongs To
+groups sysuser #Determine What Groups sysuser Belongs To
+cat /etc/group | grep sysuser #Determine What Groups sysuser Belongs To
+getent passwd sysuser #user home directory
+cat /etc/passwd | grep sysuser
