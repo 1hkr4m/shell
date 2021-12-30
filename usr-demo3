@@ -1,11 +1,8 @@
 #!/bin/bash
 
 FILE=/etc/passwd
-
 for name in $(awk -F: '{print $1}' < "$FILE")
 do
-for((n=0; n<$($FILE | wc -l); n++))
-do
+groups "$name"
 done
-echo "User$n $name"
-done
+exit 0
