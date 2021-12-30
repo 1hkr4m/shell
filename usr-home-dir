@@ -1,0 +1,18 @@
+#!/bin/bash
+
+read PATH
+
+main2()
+{
+
+}
+
+
+main()
+{
+#homedir=$( getent passwd "igor" | cut -d; -f6 )
+#du -sh $PATH
+echo "$PATH"
+}
+
+main 
