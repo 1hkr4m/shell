@@ -1,0 +1,13 @@
+#!/bin/bash
+
+userslist() 
+{
+n=0
+FILE=/etc/passwd
+
+for name in $(awk -F: '{print $1}' < "$FILE")
+do
+n=$(($n+1))
+printf "$n "; groups "$name" 
+done
+}
