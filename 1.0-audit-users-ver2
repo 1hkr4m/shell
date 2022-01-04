@@ -25,7 +25,7 @@ homedirweigth() {
 }
 
 lastlogin() {
-    last $1 | tail -n 1
+    last $1 | tail -n 1 | cut -d " " -f 3-
 }
 
 main() {
