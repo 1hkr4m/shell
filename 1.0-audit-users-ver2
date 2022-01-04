@@ -1,13 +1,28 @@
 #!/bin/bash
 
-userslist() 
-{
-n=0
+sudostatus() {
+    if [[ -n $(sudo -lU $1 | grep "may run the following" | cut -d: -f1) ]]
+        then
+            echo "sudo ok"
+        else
+            echo "sudo disabled"
+    fi
+}
+
+main() {
 FILE=/etc/passwd
 
-for name in $(awk -F: '{print $1}' < "$FILE")
-do
-n=$(($n+1))
-printf "$n "; groups "$name" 
-done
+    for name in $(awk -F: '{print $1}' < "$FILE")
+    do
+#        if [[ -n $(sudostatus "${name}") ]]; then
+#           sudost="sudo ok"
+#        else
+#            sudost="sudo disabled"
+#        fi
+        groupvar=$(groups ${name})
+        sudost=$(sudostatus ${name})
+        echo "USER: ${groupvar} | SUDO STATUS: ${sudost}"
+    done
 }
+
+main
