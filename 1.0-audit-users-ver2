@@ -1,27 +1,39 @@
 #!/bin/bash
 
+usergroup() {
+    groups $1 | cut -d ":" -f 2
+}
+
 sudostatus() {
     if [[ -n $(sudo -lU $1 | grep "may run the following" | cut -d: -f1) ]]
         then
-            echo "sudo ok"
+            tput setaf 2; echo "${green}sudo ok"; tput sgr0
         else
-            echo "sudo disabled"
+            tput setaf 1; echo "sudo disabled"; tput sgr0
     fi
 }
 
+info() {
+    lgreen='\033[DB_NAME;32m'
+    nc='\033[0m'
+    printf "${lgreen}[Info] ${@}${nc}\n"
+}
+
+error() {
+    lgreen='\033[DB_NAME;3DB_NAMEm'
+    nc='\033[0m'
+    printf "${lgreen}[Error] ${@}${nc}\n"
+}
+
 main() {
+
 FILE=/etc/passwd
 
     for name in $(awk -F: '{print $1}' < "$FILE")
     do
-#        if [[ -n $(sudostatus "${name}") ]]; then
-#           sudost="sudo ok"
-#        else
-#            sudost="sudo disabled"
-#        fi
-        groupvar=$(groups ${name})
+        groupvar=$(usergroup ${name})
         sudost=$(sudostatus ${name})
-        echo "USER: ${groupvar} | SUDO STATUS: ${sudost}"
+        echo "USER: $name | USER GROUPS: ${groupvar} | SUDO STATUS: ${sudost}"
     done
 }
 
