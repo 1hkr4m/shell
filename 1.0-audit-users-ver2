@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usergroup() {
-    groups $1 | cut -d ":" -f 2
+    groups $1 | cut -d ":" -f 2 | cut -d " " -f 2
 }
 
 sudostatus() {
@@ -13,16 +13,19 @@ sudostatus() {
     fi
 }
 
-info() {
-    lgreen='\033[DB_NAME;32m'
-    nc='\033[0m'
-    printf "${lgreen}[Info] ${@}${nc}\n"
+homedirweigth() {
+    homepath=$(getent passwd $1 | cut -d: -f 6)
+    if cd $homepath
+        then
+            weight="$(du -sh $homepath | awk -F' ' '{ print $1}')"
+            echo $weight
+        else
+            echo "No home"
+    fi
 }
 
-error() {
-    lgreen='\033[DB_NAME;3DB_NAMEm'
-    nc='\033[0m'
-    printf "${lgreen}[Error] ${@}${nc}\n"
+lastlogin() {
+    last $1 | tail -n 1
 }
 
 main() {
@@ -33,7 +36,9 @@ FILE=/etc/passwd
     do
         groupvar=$(usergroup ${name})
         sudost=$(sudostatus ${name})
-        echo "USER: $name | USER GROUPS: ${groupvar} | SUDO STATUS: ${sudost}"
+        homedir=$(homedirweigth ${name})
+        lastlg=$(lastlogin ${name})
+        echo "USER: $name | USER GROUPS: ${groupvar} | SUDO STATUS: ${sudost} | HOME DIR: ${homedir} | LAST: ${lastlg}" | grep -v "du:"
     done
 }
 
