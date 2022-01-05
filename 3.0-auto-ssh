@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#fun for new keys
+gen_ssh() {
+    ssh-keygen
+}
+
+#test ssh connection, if ask password than need re-setup ssh
+test_ssh() {
+    ssh root@$1
+}
+
+#disable ssh login with passwd and root login. Start only if test_ssh() is true
+ssh_setup() {
+    
+}
+
+main() {
+    scp -p root@162.168.0.10:/home/igor/key.pub root@$1:/home/igor
+}
+

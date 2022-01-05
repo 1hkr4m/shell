@@ -1,3 +1,18 @@
 #!/bin/bash
 
-echo "$(top -bn1 | grep Cpu)"
+cpu_mon() {
+cpu_="$(top -bn1 | grep Cpu)"
+}
+
+ram_mon() {
+
+}
+
+storage() {
+
+}
+
+main() {
+
+}
+
