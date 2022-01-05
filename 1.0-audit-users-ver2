@@ -18,7 +18,7 @@ homedirweigth() {
     if cd $homepath
         then
             weight="$(du -sh $homepath | awk -F' ' '{ print $1}')"
-            echo $weight 
+l            echo $weight 
         else
             echo "No home"
     fi
@@ -31,16 +31,16 @@ lastlogin() {
 main() {
 
 FILE=/etc/passwd
-
     for name in $(awk -F: '{print $1}' < "$FILE")
-    do
-        groupvar=$(usergroup ${name})
-        sudost=$(sudostatus ${name})
-        homedir=$(homedirweigth ${name})
-        lastlg=$(lastlogin ${name})
-        printf "USER: $(tput setaf 3)$name $(tput sgr0) | USER GROUPS: ${groupvar} | SUDO STATUS: ${sudost} | HOME DIR: ${homedir} | LAST: ${lastlg}"  | grep -v "du:" >> ~/logi2.txt; clear; cat ~/logi2.txt
-    done
-	rm ~/logi2.txt
+        do
+            groupvar=$(usergroup ${name})
+            sudost=$(sudostatus ${name})
+            homedir=$(homedirweigth ${name})
+            lastlg=$(lastlogin ${name})
+            echo "USER: $(tput setaf 3)$name $(tput sgr0) | USER GROUPS: ${groupvar} | \
+SUDO STATUS: ${sudost} | HOME DIR: ${homedir} | LAST: ${lastlg}"  | grep -v "du:" >> ~/logi2.txt; clear; cat ~/logi2.txt
+        done
+    rm ~/logi2.txt
 }
 
 main
