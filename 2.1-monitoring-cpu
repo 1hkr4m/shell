@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cpuuse=$(cat /proc/loadavg | awk '{print $3}'|cut -f 1 -d ".")
+echo "$cpuuse"
+if [ "$cpuuse" -gt 5 ]; then
+echo "ATTENTION: CPU load is high on $(hostname) at $(date)"
+fi
