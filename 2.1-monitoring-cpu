@@ -1,7 +1,10 @@
 #!/bin/bash
+cores_count=$(cat /proc/stat | grep cpu | tail -n +2 | wc -l)
+cpuuse=$(cat /proc/loadavg | awk '{print $3}')
+#echo "$cpuuse and $cores_count"
 
-cpuuse=$(cat /proc/loadavg | awk '{print $3}'|cut -f 1 -d ".")
-echo "$cpuuse"
-if [ "$cpuuse" -gt 5 ]; then
-echo "ATTENTION: CPU load is high on $(hostname) at $(date)"
+if [[ $cpuuse > $cores_count ]]; then
+        echo "+----------------------------------------+" >> ~/log-mon.txt
+        date >> ~/log-mon.txt
+        echo "ATTENTION: CPU load is high on $(hostname)" >> ~/log-mon.txt
 fi
