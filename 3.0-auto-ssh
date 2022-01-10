@@ -2,20 +2,19 @@
 
 #fun for new keys
 gen_ssh() {
-    ssh-keygen
+    ssh-keygen -t rsa 
+    ssh-copy-id -i ~/.ssh/$HOSTNAME_key.pub $1@$2
 }
 
 #test ssh connection, if ask password than need re-setup ssh
 test_ssh() {
-    ssh root@$1
+    ssh $1@$2
+    grep -v "PertmitRootLogin" /etc/ssh/sshd_config > temp; echo "PermitRootLogin no" >> temp; mv temp /etc/ssh/sshd_config
+    grep -v ""
+    systemctl restart sshd
+    service sshd restart
+    /etc/init.d/ssh restart
 }
 
-#disable ssh login with passwd and root login. Start only if test_ssh() is true
-ssh_setup() {
-    
-}
-
-main() {
-    scp -p root@162.168.0.10:/home/igor/key.pub root@$1:/home/igor
-}
-
+gen_ssh $1 $2
+test_ssh $1 $2
