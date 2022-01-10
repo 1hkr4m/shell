@@ -1,20 +1,20 @@
 #!/bin/bash
 
 #fun for new keys
-gen_ssh() {
-    ssh-keygen -t rsa 
-    ssh-copy-id -i ~/.ssh/$HOSTNAME_key.pub $1@$2
+setup_ssh() {
+    ssh-keygen -t rsa -b 4096 -f ~/.ssh/$HOSTNAME-key
+    ssh-copy-id -i ~/.ssh/$HOSTNAME-key.pub root@$2
+    ssh $1@$2 < test_ssh   
 }
 
 #test ssh connection, if ask password than need re-setup ssh
-test_ssh() {
-    ssh $1@$2
+test_ssh() {  
+    sudo -i
     grep -v "PertmitRootLogin" /etc/ssh/sshd_config > temp; echo "PermitRootLogin no" >> temp; mv temp /etc/ssh/sshd_config
-    grep -v ""
+    grep -v "PasswordAuthentication" /etc/ssh/sshd_config > temp; echo "PasswordAuthentication no" >> temp; mv temp /etc/ssh/sshd_config
     systemctl restart sshd
     service sshd restart
     /etc/init.d/ssh restart
 }
 
-gen_ssh $1 $2
-test_ssh $1 $2
+setup_ssh $1 $2
