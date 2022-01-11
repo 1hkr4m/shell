@@ -1,17 +1,14 @@
 #!/bin/bash
 
-#ssh igor@192.33.33.17 'mkdir ~/Test'
-sudo scp -r ~/Test igor@192.33.33.17:~/
+scp -r ~/Test igor@192.33.33.17:~/
 ssh igor@192.33.33.17 << 'EOF'
 nu() {
 for name in $(ls -l ~/Test | awk '/pub/{print $9}' | cut -d_ -f1)
     do 
         sudo useradd -m $name
-        sudo mkdir /home/$name/.ssh
-        sudo chown $name:$name /home/$name/.ssh
-        sudo touch /home/$name/.ssh/known_hosts
-        sudo chown $name:$name /home/$name/.ssh/known_hosts
-        sudo cat ~/Test/$name_key.pub >> /home/$name/.ssh/known_hosts
+        sudo mkdir -p /home/$name/.ssh && sudo touch /home/$name/.ssh/authorized_keys
+        sudo cat /home/igor/Test/$name_key.pub >> /home/$name/.ssh/authorized_keys
+        sudo chown -R $name:$name /home/$name/.ssh
     done
 }
 nu
