@@ -1,0 +1,10 @@
+#!/bin/bash
+
+UPATH=/home/igor/Test
+
+for name in $(ls -l ~/Test | awk '/pub/{print $9}' | cut -d"_" -f1)
+    do 
+        useradd -m $name
+        mkdir /home/$name/.ssh
+        cp $UPATH/$name_key.pub home/$name/.ssh
+    done
