@@ -1,11 +1,18 @@
 #!/bin/bash
 
-UPATH=/home/igor/Test
-
-for name in $(ls -l ~/Test | awk '/pub/{print $9}' | cut -d"_" -f1)
+#ssh igor@192.33.33.17 'mkdir ~/Test'
+sudo scp -r ~/Test igor@192.33.33.17:~/
+ssh igor@192.33.33.17 << 'EOF'
+nu() {
+for name in $(ls -l ~/Test | awk '/pub/{print $9}' | cut -d_ -f1)
     do 
-        ssh igor@192.33.33.17 sudo 'useradd -m $name mkdir /home/$name/.ssh'
-        scp igor@192.33.33.10:$UPATH/$name_key.pub igor@192.33.33.17:/home/$name/.ssh
-        cat $name_key >> known_hosts
+        sudo useradd -m $name
+        sudo mkdir /home/$name/.ssh
+        sudo chown $name:$name /home/$name/.ssh
+        sudo touch /home/$name/.ssh/known_hosts
+        sudo chown $name:$name /home/$name/.ssh/known_hosts
+        sudo cat ~/Test/$name_key.pub >> /home/$name/.ssh/known_hosts
     done
-
+}
+nu
+EOF
