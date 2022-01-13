@@ -1,9 +1,11 @@
 [Unit]
-Description=hit service
-After=network-online.target
+Description=Script for monitoring CPU RAM Storage
+After=network.target
 
 [Service]
-ExecStart=/home/igor/Git/shell/2.0-monitoring
+ExecStart=/home/igor/GitHub/shell/2.0-mon-service       
+User=igor
+Restart=always    
 
 [Install]
 WantedBy=multi-user.target
