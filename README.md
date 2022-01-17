@@ -1,5 +1,5 @@
 # Bash scripts
 
--  Demo 
--  Usefull
+-  demo 
+-  usefull
 -  [shellclass](https://www.udemy.com/course/linux-shell-scripting-projects/)
