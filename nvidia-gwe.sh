@@ -3,3 +3,4 @@
 
 # Run gwe for cron
 flatpak run com.leinardi.gwe
+
