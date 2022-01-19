@@ -100,3 +100,4 @@ id
 who 
 last
 w
+shuf #generate random permutations and random outputs
