@@ -29,7 +29,7 @@ shift
 COMMENT="${@}"
 
 # Generate the password
-PASSWORD=$(date +%s%N | sha256sum | head -c48)
+PASSWORD=$(date +%s%N | sha256sum | head -c16)
 
 # Create the user
 useradd -c "${COMMENT}" -m ${USER_NAME}
