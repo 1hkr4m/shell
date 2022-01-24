@@ -1,12 +1,26 @@
 #!/bin/bash
 
-# Install nginx
-intall_nginx {
-    apt install nginx
+apt-get install nginx
+
+if [[ "${?}" -ne 0 ]]
+    then
+      echo "Nginx is not installed." >&2
+      exit 1
+fi
+
+nginx -V
+nginx -t
+
+check_status() {
+
+var='active'
+if [[ $var == $(systemctl status nginx.service | grep Active | cut -d ":" -f2 | cut -d " " -f2) ]]
+then
+    ehco "nginx is acive"
+else
+    "nginx is down"
+    systemctl start nginx.service
+    check_status()
+fi
 }
 
-# default page "hello world" 
-# 443 setup https
-# basic auth
-# redirect from 80 to 443
-# servername ihor.html.com
