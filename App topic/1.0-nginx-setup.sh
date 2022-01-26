@@ -1,12 +1,46 @@
 #!/bin/bash
 
+
+LOG_FILE="/var/log/nginx-install.txt"
+
+# Run as sudo only
+if [[ "${UID}" -ne 0 ]]
+then
+    echo 'Please run with sudo or as root' >&2
+    exit 1
+fi
+
 # Install nginx
-intall_nginx {
-    apt install nginx
+install_nginx() {
+    apt-get update
+    apt-get -y install nginx >> $LOG_FILE
+    if [[ "$?" -eq 0 ]]
+    then
+        echo "Installation of nginx successfully complete!"
+    else
+        echo "Installation failed!"
+        exit 1
+    fi     
 }
 
-# default page "hello world" 
-# 443 setup https
-# basic auth
-# redirect from 80 to 443
-# servername ihor.html.com
+# Test of setup
+test_nginx() {
+    echo "You start your instalation on $(date)" >> $LOG_FILE
+systemctl status nginx >> $LOG_FILE
+nginx -t >> $LOG_FILE
+}
+
+# Add rulles to firewall, if it neeed to
+firewall_config() {
+    if [[ "$(ufw status | cut -d " " -f2)" -eq "inactive" ]]
+    then
+        exit 1
+    else
+        ufw allow 'Nginx HTTP'
+        ufw status
+    fi
+}
+
+install_nginx
+test_nginx
+firewall_config
