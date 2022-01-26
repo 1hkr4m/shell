@@ -25,20 +25,21 @@ install_nginx() {
 # Test of setup
 test_nginx() {
     echo "You start your instalation on $(date)" >> $LOG_FILE
-systemctl status nginx >> $LOG_FILE
-var='active'
-if [[ $var == $(systemctl status nginx.service | grep Active | cut -d ":" -f2 | cut -d " " -f2) ]]
-then
-    ehco "nginx is acive"
-else
-    "nginx is down"
-    systemctl start nginx.service
-    check_status()
-fi
+    systemctl status nginx >> $LOG_FILE
+    var='active'
+    if [[ "$(systemctl status nginx.service | grep Active | cut -d ":" -f2 | cut -d " " -f2)" -eq "$(var)" ]]
+    then
+        ehco "nginx is acive"
+        exit 0
+    else
+        echo "nginx is down"
+        systemctl enable nginx.service
+        systemctl start nginx.service
+    fi
+    nginx -t >> $LOG_FILE
+    nginx -V >> $LOG_FILE
 }
-nginx -t >> $LOG_FILE
-nginx -V >> $LOG_FILE
-}
+
 
 # Add rulles to firewall, if it neeed to
 firewall_config() {
