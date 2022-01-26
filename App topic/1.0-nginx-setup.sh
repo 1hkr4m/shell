@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 LOG_FILE="/var/log/nginx-install.txt"
 
 # Run as sudo only
@@ -27,7 +26,18 @@ install_nginx() {
 test_nginx() {
     echo "You start your instalation on $(date)" >> $LOG_FILE
 systemctl status nginx >> $LOG_FILE
+var='active'
+if [[ $var == $(systemctl status nginx.service | grep Active | cut -d ":" -f2 | cut -d " " -f2) ]]
+then
+    ehco "nginx is acive"
+else
+    "nginx is down"
+    systemctl start nginx.service
+    check_status()
+fi
+}
 nginx -t >> $LOG_FILE
+nginx -V >> $LOG_FILE
 }
 
 # Add rulles to firewall, if it neeed to
