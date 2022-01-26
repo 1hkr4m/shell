@@ -64,4 +64,5 @@ firewall_config() {
 
 install_nginx
 test_nginx
+set_config
 firewall_config
