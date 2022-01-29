@@ -1,0 +1,26 @@
+sudo apt install -y virtualbox
+sudo apt-get install -y vagrant
+
+vagrant --version
+
+# Vagrant plugin
+vagrant plugin install vbinfo
+vagrant plugin list
+vagrant plugin update
+vagrant plugin repair
+vagrant plugin unistall
+vagrant plugin expunge
+vagrant plugin install vagrant-vbguest
+
+vagrant validate
+
+vagrant global-status
+
+# Snapshots
+
+# Snap create
+vagrant snapshot save [vm_name] snap_name 
+# Snaps list
+vagrant snapshot list
+# Snap restore
+vagrant snapshot restore [vm_name] snap_name
