@@ -11,13 +11,14 @@ fi
 
 # Main setup for my VMs
 main_apps() {
-sudo apt install -y net-tools
-apt install -y macchanger
-sudo apt install -y tree
-sudo apt install -y git
-sudo apt install -y konsole
-sudo apt install -y keepassxc
-sudo apt install -y openssh-server
+    sudo apt-get update
+    apt install -y net-tools
+    apt install -y macchanger
+    apt install -y tree
+    apt-get install -y git
+    apt install -y konsole
+    apt install -y keepassxc
+    apt-get install -y openssh-server
 }
 
 git_config() {
@@ -28,6 +29,8 @@ git_config() {
     git clone https://github.com/1hkr4m/team-labs.git
     git clone https://github.com/1hkr4m/python-learn.git
     git clone https://github.com/1hkr4m/py-cisco.git
+    git clone https://github.com/1hkr4m/linux-devops.git
+    git clone https://github.com/1hkr4m/leetcode.git
 }
 
 mac_address_conf() {
@@ -38,24 +41,23 @@ mac_address_conf() {
 
 # VisualStudio Code
 dev_apps() {
-sudo apt-get update
-sudo apt install apt-transport-https
-sudo apt install code
-sudo apt-get install python3.6
+    apt install apt-transport-https
+    sudo apt install code
+    sudo apt-get install python3.6
 }
 
 # Virtualization soft
 vm_apps() {
-curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
-sudo apt install -y virtualbox
-sudo apt install -y ./vagrant_2.2.9_x86_64.deb
-#sudo apt install -y wine-stable+
-}
+    cd ~
+    curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
+    sudo apt install -y virtualbox
+    sudo apt install -y ./vagrant_2.2.9_x86_64.deb
+    }
 
 # Other soft
 other_apps() {
-sudo apt install synaptic
-sudo apt install terminator
+    sudo apt install synaptic
+    sudo apt install terminator
 sudo apt install doublecmd-gtk
 sudo apt install filezilla
 }
