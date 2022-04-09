@@ -19,6 +19,7 @@ main_apps() {
     apt install -y konsole
     apt install -y keepassxc
     apt-get install -y openssh-server
+    apt installl ncdu
 }
 
 git_config() {
