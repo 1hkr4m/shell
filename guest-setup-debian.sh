@@ -11,7 +11,7 @@ fi
 
 # Main setup for my VMs
 main_apps() {
-    sudo apt-get update
+    apt update
     apt install -y net-tools
     apt install -y macchanger
     apt install -y tree
@@ -24,14 +24,26 @@ main_apps() {
 
 git_config() {
     mkdir /home/ihor/GitHub
-    cd /home/ihor/GitHub
-    git clone https://github.com/1hkr4m/shell.git
-    git clone https://github.com/1hkr4m/ccna.git
-    git clone https://github.com/1hkr4m/team-labs.git
-    git clone https://github.com/1hkr4m/python-learn.git
-    git clone https://github.com/1hkr4m/py-cisco.git
-    git clone https://github.com/1hkr4m/linux-devops.git
-    git clone https://github.com/1hkr4m/leetcode.git
+    cd /home/ihor/Git
+    # GitHub
+    git clone git@github.com:1hkr4m/atlas_devops_iac.git
+    git clone git@github.com:1hkr4m/linux-devops.git
+    git clone git@github.com:1hkr4m/my-site.git
+    git clone git@github.com:1hkr4m/powershell.git
+    git clone git@github.com:1hkr4m/python-learn.git
+    git clone git@github.com:1hkr4m/shell.git
+    git clone git@github.com:1hkr4m/team_international.git
+    git clone git@github.com:1hkr4m/team-labs.git
+    #git clone git@github.com:1hkr4m/py-cisco.git
+    #git clone git@github.com:1hkr4m/ccna.git
+    #git clone git@github.com:1hkr4m/leetcode.git
+
+    # BitBucket Team International
+    git clone git@bitbucket.org:VaultMR/vaultmr.git
+    git clone git@bitbucket.org:VaultMR/vaultmr_devops_confmgmt.git
+    git clone git@bitbucket.org:careanalytics/catapult_devops.git
+    git clone git@bitbucket.org:VaultMR/vaultmr_devops_iac.git
+    #git clone git@bitbucket.org:VaultMR/vaultmr_aws_lambda.git
 }
 
 mac_address_conf() {
